@@ -1,0 +1,18 @@
+[project]
+name = "snake"
+version = "0.1.0"
+description = "Classic Snake game with Python and Pygame"
+authors = [
+    { name = "Daniel Chen", email = "chendaniely@gmail.com" }
+]
+requires-python = ">=3.14"
+dependencies = [
+    "pygame>=2.6.1",
+]
+
+[project.scripts]
+snake = "snake:main"
+
+[build-system]
+requires = ["uv_build>=0.13.1,<0.14.0"]
+build-backend = "uv_build"
