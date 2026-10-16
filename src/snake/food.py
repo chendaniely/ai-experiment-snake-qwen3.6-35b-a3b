@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import random
-import pygame
 
 from . import constants
 from .snake import Snake
@@ -29,13 +28,11 @@ class Food:
         ]
         return random.choice(free_cells)
 
-    def draw(self, surface: pygame.Surface) -> None:
-        """Render food as a red square."""
+    def draw(self, surface) -> None:
+        """Render food as a red circle."""
         gs = constants.GRID_SIZE
-        rect = pygame.Rect(
-            self.position[0] * gs,
-            self.position[1] * gs,
-            gs - 1,
-            gs - 1,
-        )
-        pygame.draw.rect(surface, constants.RED, rect)
+        cx = self.position[0] * gs + gs // 2
+        cy = self.position[1] * gs + gs // 2
+        surface.fill(constants.RED, (self.position[0] * gs, self.position[1] * gs, gs - 1, gs - 1))
+        # Highlight dot
+        surface.fill(constants.ORANGE, (cx - 2, cy - 2, 4, 4))
