@@ -181,3 +181,24 @@ Let's trace through what would have happened:
 **Verdict:** With the procedural skills installed, the Snake game would have been built correctly the first time. The pygame compatibility issue would have been caught before coding. The missing intro screen would have been included in the plan. The body orientation bug would have been caught during self-testing. The incomplete feature set would have been caught during pre-completion verification.
 
 The game would have been delivered with WASD and IJKL controls (because the brainstorming step would have included "multiple control schemes" as a reasonable requirement, and the pre-completion checklist would have verified all controls work).
+
+## Documentation Drift Is the Same Failure
+
+The README was written after attempt 3 and never updated when WASD/IJKL controls were added in attempt 4. The README documented the game as it existed at that moment, not as it exists now.
+
+**This is the same root cause as the skill invocation failure.** The agent claimed "README is done" without verifying it against the current state of the product. The same pattern:
+
+1. Agent writes docs
+2. Agent says "done"
+3. Product changes
+4. Docs don't change
+5. Agent says "docs are up to date" (they're not)
+
+**The fix is the same:** run the equivalent of `uv run snake` for docs — compare every doc claim against the current codebase before declaring docs current.
+
+The pre-completion-checklist should include:
+- [ ] Verify README controls section matches actual controls
+- [ ] Verify README file structure matches actual files
+- [ ] Verify README features match actual features
+
+Documentation is code. Documentation drift is a bug.

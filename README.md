@@ -22,8 +22,8 @@ uv run snake
 
 | Key | Action |
 |-----|--------|
-| Arrow keys | Move |
-| Space | Restart (after game over) |
+| Arrow keys / WASD / IJKL | Move |
+| Space | Start / Restart |
 | Q | Quit (during game over) |
 
 ## How it works
@@ -31,10 +31,11 @@ uv run snake
 ```
 src/snake/
 ├── __init__.py   # Entry point (main())
-├── game.py       # Game loop, input, rendering
-├── snake.py      # Snake body, movement, collision
+├── game.py       # Game loop, input, rendering, states
+├── snake.py      # Snake body, movement, collision, eyes
 ├── food.py       # Food placement (avoids snake body)
 └── constants.py  # Config: colors, grid size, FPS
 ```
 
-Game runs at 10 ticks per second. The snake dies on wall or self collision.
+Game runs at 10 ticks per second. States: INTRO → PLAYING → GAME_OVER.
+Snake dies on wall or self collision. High score saved to disk.
