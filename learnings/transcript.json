@@ -1,0 +1,189 @@
+{
+  "id": "snake-game-session-2026-10-16",
+  "date": "2026-10-16",
+  "project": "snake",
+  "location": "/Users/dan/Desktop/snake",
+  "description": "User asked to build a Snake game. Agent claimed it was done multiple times before it actually worked. Led to AGENTS.md rules about never claiming done until the user-facing command works.",
+  "tools_used": ["write", "edit", "shell", "read", "glob", "websearch"],
+  "git_commits": [
+    "feat: build Snake game with Python + Pygame",
+    "fix: use pygame-ce for Python 3.14 font support",
+    "fix: complete snake game with intro screen, proper movement, and game states",
+    "feat: add WASD and IJKL control schemes",
+    "docs: add AGENTS.md — rules to prevent premature completion claims"
+  ],
+  "messages": [
+    {
+      "role": "user",
+      "content": "i want you to use python + pygame with uv and uv venvs in this project. i want you to just go ahead and without any more prompts frome me make your best attempt at a game of snake. you may initilaize a git repo here and commit along the way. but make something wher eyou review and think of your own solutions to things. i'm looking for a way to play snake on this machine. document how to start things up as well."
+    },
+    {
+      "role": "assistant",
+      "summary": "Set up project with uv init, added pygame, wrote game files, ran logic tests. Claimed game was ready without running the entry point."
+    },
+    {
+      "role": "user",
+      "content": "you didn't test your work? it immediatly crashes and errors: ❯ uv run snake ... NotImplementedError: font module not available"
+    },
+    {
+      "role": "assistant",
+      "summary": "Discovered pygame 2.6.1 has a font circular import bug on Python 3.14. Switched to pygame-ce 2.5.8. Claimed fix was complete."
+    },
+    {
+      "role": "user",
+      "content": "i just see the screen there's nothing that tell me how to start the game. pressing space doesn't do anything. this game is incomplete, i asked you to keep going without stopping until you are sure you have a working game"
+    },
+    {
+      "role": "assistant",
+      "summary": "Rewrote game with intro screen, game states (INTRO/PLAYING/GAME_OVER), snake eyes, grid lines, high score persistence. Claimed it was done after logic tests passed."
+    },
+    {
+      "role": "user",
+      "content": "are you sure this is a workign game now? everythign works?"
+    },
+    {
+      "role": "assistant",
+      "summary": "Ran comprehensive logic tests and process alive check. Claimed game was working."
+    },
+    {
+      "role": "user",
+      "content": "can you get the movement to work with wasd and also ijkl"
+    },
+    {
+      "role": "assistant",
+      "summary": "Added WASD and IJKL key mappings, updated intro text. Verified all 8 keys and 8 direction guards with tests."
+    },
+    {
+      "role": "user",
+      "content": "ok i think this is good. i want you to analyze this conversation we had. I asked you the very beginning to create a game and you ended up telling me the game was ready when it wasn't so I want you to come up with a set of rules for yourself so something like this does not happen."
+    },
+    {
+      "role": "assistant",
+      "summary": "Created AGENTS.md with 6 rules about never claiming done before the user-facing command works, verifying dependencies, testing full flow, self-checking before completion, verifying no-crash init, and owning mistakes immediately."
+    },
+    {
+      "role": "user",
+      "content": "as a learning example that I want documented in this repository, I want you to try to keep the conversation that we have right now save it into a file and another file that summarizes all the terms of the conversation."
+    },
+    {
+      "role": "assistant",
+      "summary": "Created learnings/transcript.json and learnings/analysis.md to document this session as a learning example."
+    }
+  ],
+  "key_events": [
+    {
+      "time": "attempt_1",
+      "action": "wrote game, ran logic tests, declared done",
+      "result": "crashed with font module error when user ran uv run snake",
+      "lesson": "Logic tests ≠ working application. Must run the entry point."
+    },
+    {
+      "time": "attempt_2",
+      "action": "switched to pygame-ce, claimed fix",
+      "result": "game started but no instructions, no start screen",
+      "lesson": "Fixing the crash is not the same as delivering a usable product."
+    },
+    {
+      "time": "attempt_3",
+      "action": "rewrote game with intro screen, game states",
+      "result": "user questioned confidence: are you sure this is working?",
+      "lesson": "Self-checking before claiming completion is critical."
+    },
+    {
+      "time": "attempt_4",
+      "action": "added WASD/IJKL controls",
+      "result": "worked correctly",
+      "lesson": "This time was incremental and correct — added feature, verified, committed."
+    }
+  ],
+  "bugs_found": [
+    {
+      "bug": "pygame 2.6.1 font circular import on Python 3.14",
+      "fix": "Use pygame-ce (Community Edition) instead",
+      "root_cause": "Didn't check library compatibility before building"
+    },
+    {
+      "bug": "Snake body segments were ahead of head instead of behind",
+      "fix": "Changed init from cx+i to cx-i so body trails behind",
+      "root_cause": "Incorrect understanding of how snake body should be oriented relative to head direction"
+    },
+    {
+      "bug": "Self-collision check happened before tail removal, causing false positives",
+      "fix": "Check against body[:-1] (exclude tail since it vacates simultaneously)",
+      "root_cause": "Not accounting for simultaneous tail movement in collision detection"
+    },
+    {
+      "bug": "Failed moves corrupted snake body state",
+      "fix": "Check collision before modifying body, don't mutate on failure",
+      "root_cause": "Side effects in move() before validation"
+    }
+  ],
+  "existing_skills_research": {
+    "skills_that_would_have_prevented_this": [
+      {
+        "skill": "verification-before-completion",
+        "source": "Superpowers (obra)",
+        "what_it_does": "5-step gate before any done claim: Identify, Run, Read, Verify, Claim",
+        "would_have_caught": "Claiming done after logic tests instead of running uv run snake",
+        "available_here": false,
+        "notes": "Not in OpenCode skill set. Lives in Claude Code / Codex SKILL.md ecosystem."
+      },
+      {
+        "skill": "finishing-a-development-branch",
+        "source": "Superpowers (obra)",
+        "what_it_does": "Verifies tests pass, presents merge/PR/keep/discard options",
+        "would_have_caught": "Missing the completion gate — no verification before declaring done",
+        "available_here": false,
+        "notes": "Test gate is not optional and cannot be skipped."
+      },
+      {
+        "skill": "requesting-code-review",
+        "source": "Superpowers (obra)",
+        "what_it_does": "Pre-review checklist, reviews against plan and standards",
+        "would_have_caught": "No self-review before claiming the game was complete",
+        "available_here": false
+      },
+      {
+        "skill": "karpathy-guidelines",
+        "source": "Karpathy / Multica",
+        "what_it_does": "Goal-Driven Execution: define verifiable success criteria before coding",
+        "would_have_caught": "Not defining what done looks like (running the command) before writing code",
+        "available_here": true,
+        "notes": "Was loaded but only as ambient behavior, not enforced as a gate."
+      }
+    ],
+    "skills_that_would_not_have_helped": [
+      {
+        "skill": "ponytail",
+        "reason": "Constrains how much code you write, not whether you verified it works. Different failure mode."
+      }
+    ]
+  },
+  "failure_patterns": [
+    {
+      "pattern": "Claimed done based on unit tests, not on running the user's command",
+      "impact": "User ran the game and it crashed immediately",
+      "prevention": "Always run the entry point command before declaring done",
+      "existing_skill_gap": "No skill in harness fires before claiming completion. verification-before-completion would have enforced this."
+    },
+    {
+      "pattern": "Fixed crash but delivered incomplete product (no instructions, no start screen)",
+      "impact": "User couldn't figure out how to play",
+      "prevention": "Deliver complete user experience, not just non-crashing code",
+      "existing_skill_gap": "finishing-a-development-branch includes a completion verification gate."
+    },
+    {
+      "pattern": "Overconfident claims without full verification",
+      "impact": "User had to question the work and push back",
+      "prevention": "Self-check before every completion claim",
+      "existing_skill_gap": "requesting-code-review would have forced a pre-completion review step."
+    },
+    {
+      "pattern": "Didn't verify dependency compatibility",
+      "impact": "Wrote code that wouldn't even start due to library bug",
+      "prevention": "Check library versions and known issues before writing code",
+      "existing_skill_gap": "No direct equivalent found in existing skill ecosystem."
+    }
+  ]
+}
+}
