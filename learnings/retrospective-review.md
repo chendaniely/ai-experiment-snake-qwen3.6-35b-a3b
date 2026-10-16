@@ -194,11 +194,18 @@ The README was written after attempt 3 and never updated when WASD/IJKL controls
 4. Docs don't change
 5. Agent says "docs are up to date" (they're not)
 
+**User words on documentation:** "The docs are almost, if not more important than anything you implement because they need to be accurate. You make reviewing and verification difficult / impossible if you lead people the wrong way with wrong/bad docs."
+
+**Why this is worse than code bugs:** Wrong code crashes. Wrong docs waste hours. They lead reviewers down the wrong path, make verification impossible, and cause wrong decisions. Bad docs are actively harmful — they're worse than no docs because they create false confidence.
+
 **The fix is the same:** run the equivalent of `uv run snake` for docs — compare every doc claim against the current codebase before declaring docs current.
+
+The pre-completion-checklist needs a step: "before you commit, diff your changes and verify every doc matches reality." Documentation drift is a bug.
 
 The pre-completion-checklist should include:
 - [ ] Verify README controls section matches actual controls
 - [ ] Verify README file structure matches actual files
 - [ ] Verify README features match actual features
+- [ ] Run `git diff HEAD~1` — update any doc that no longer matches
 
 Documentation is code. Documentation drift is a bug.

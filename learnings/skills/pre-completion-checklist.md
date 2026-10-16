@@ -52,12 +52,40 @@ Did any existing functionality break?
 - Run the existing entry point
 - Check that previously-working features still work
 
-### 5. What did you NOT check?
+### 5. Verify documentation
+
+Bad docs are worse than no docs. They actively mislead. They make reviewing and verification impossible by leading people the wrong way.
+
+**User words:** "The docs are almost, if not more important than anything you implement because they need to be accurate. You make reviewing and verification difficult / impossible if you lead people the wrong way with wrong/bad docs."
+
+Run this diff to see what changed since the last commit:
+```
+[Run git diff HEAD~1 --stat]
+```
+
+For every file in the diff, check every doc against the current codebase:
+- **README.md:**
+  - [ ] Controls listed match actual key mappings in the code
+  - [ ] File structure matches actual files
+  - [ ] Features listed match actual features (intro screen? high score? game states?)
+  - [ ] Commands listed actually work (`uv run snake` runs without crash)
+- **AGENTS.md / CLAUDE.md / SKILL.md:**
+  - [ ] References to skills/features match what actually exists
+  - [ ] No references to deleted files or removed features
+- **In-code comments:**
+  - [ ] Comments match actual behavior (not stale descriptions)
+
+**If any doc claim does not match reality, update the doc BEFORE claiming done.**
+
+Documentation drift is a bug. Bad docs mislead reviewers, waste their time, and cause them to make wrong decisions based on false information. This is worse than the code being wrong — wrong code crashes. Wrong docs waste hours.
+
+### 6. What did you NOT check?
 
 List every thing you did NOT verify:
 - "I didn't test edge case X"
 - "I didn't test on Y platform"
 - "I didn't test Z scenario"
+- "I didn't verify doc file Z"
 
 **If this list is empty, you probably missed something. Be honest.**
 

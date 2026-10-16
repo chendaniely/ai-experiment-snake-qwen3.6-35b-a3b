@@ -52,3 +52,15 @@ When the user points out a crash or error:
 - Fix the root cause, not just the symptom
 - Verify the fix with the real command
 - Don't say "I tested it" unless you actually tested the thing the user would run
+
+## 7. Never claim documentation is done until it matches reality
+
+Bad docs are worse than no docs. They actively mislead reviewers and make verification impossible.
+
+**Rule:** Before committing any doc change, run `git diff HEAD~1 --stat`, then verify every claim in every doc against the current codebase:
+- README controls match actual key mappings
+- README file structure matches actual files
+- README features match actual features
+- In-code comments match actual behavior
+
+Documentation drift is a bug. Update docs immediately when the code changes.
