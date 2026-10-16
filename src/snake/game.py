@@ -13,6 +13,7 @@ class SnakeGame:
 
     def __init__(self) -> None:
         pygame.init()
+        pygame.font.init()
         self.screen = pygame.display.set_mode(
             (constants.WINDOW_WIDTH, constants.WINDOW_HEIGHT)
         )

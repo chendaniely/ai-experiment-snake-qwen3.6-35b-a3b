@@ -6,6 +6,7 @@ Classic Snake game built with Python and Pygame.
 
 - Python 3.14+
 - [uv](https://github.com/astral-sh/uv) (for dependency management)
+- **Note:** uses `pygame-ce` (Community Edition) — required for Python 3.14+ support
 
 ## Getting started
 
