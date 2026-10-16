@@ -77,20 +77,26 @@ class SnakeGame:
                         sys.exit()
                     continue
 
-                # Playing — arrow keys
-                if self.state == self.STATE_PLAYING and event.key in (
-                    pygame.K_UP, pygame.K_DOWN,
-                    pygame.K_LEFT, pygame.K_RIGHT,
-                ):
+                # Playing — arrow keys, WASD, IJKL
+                if self.state == self.STATE_PLAYING:
                     key_map = {
                         pygame.K_UP: ("up", "down"),
                         pygame.K_DOWN: ("down", "up"),
                         pygame.K_LEFT: ("left", "right"),
                         pygame.K_RIGHT: ("right", "left"),
+                        pygame.K_w: ("up", "down"),
+                        pygame.K_s: ("down", "up"),
+                        pygame.K_a: ("left", "right"),
+                        pygame.K_d: ("right", "left"),
+                        pygame.K_i: ("up", "down"),
+                        pygame.K_k: ("down", "up"),
+                        pygame.K_j: ("left", "right"),
+                        pygame.K_l: ("right", "left"),
                     }
-                    desired, opposite = key_map[event.key]
-                    if self.snake.direction != opposite:
-                        self.snake.direction = desired
+                    if event.key in key_map:
+                        desired, opposite = key_map[event.key]
+                        if self.snake.direction != opposite:
+                            self.snake.direction = desired
 
     def update(self) -> None:
         """Advance game state."""
@@ -131,7 +137,7 @@ class SnakeGame:
 
         # Instructions
         lines = [
-            "Arrow keys to move",
+            "Arrow keys / WASD / IJKL to move",
             "Eat the red food to grow",
             "Don't hit the walls or yourself",
             "",
